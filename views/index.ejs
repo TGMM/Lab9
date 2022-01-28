@@ -9,22 +9,22 @@
 <main role="main" class="container">
   <div class="row">
     <div class="col-md-8 blog-main">
-      
-      <div class="blog-post">
-        <h2 class="blog-post-title">Sample blog post</h2>
-        <p class="blog-post-meta">November 1, 2014 by <a href="#">Mark</a>     </p>
-        <p>This blog post shows a few different types of content that's supported and styled with Bootstrap. Basic typography, images, and code are all supported.</p>
-        <a class = "btn btn-danger" href =""> Delete </a>
-        <a class = "btn btn-info" href =""> Edit </a>
-      </div>
-
-
-
+      <% if (posts.length < 1) { %>
+       <h1 style="text-align: center;">There are no Posts</h1>
+      <% } %>
+      <% for( let post of posts ) { %>
+        <div class="blog-post">
+          <h2 class="blog-post-title"><%= post.title %></h2>
+          <p class="blog-post-meta"><%= moment(post.post_date).format("MMM D, YYYY") %> by <a href="#"><%= post.author %></a>     </p>
+          <p><%= post.post_data %></p>
+          <a class = "btn btn-danger" href ="/delete/<%= post.id %>"> Delete </a>
+          <a class = "btn btn-info" href ="/edit/<%= post.id %>"> Edit </a>
+        </div>
+      <% } %>
     </div>
   </div>
 </main>
 
-
-
-
-<%- include ("./templates/_footer") %>
+<% if (posts.length > 0) { %>
+  <%- include ("./templates/_footer") %>
+<% } %>
